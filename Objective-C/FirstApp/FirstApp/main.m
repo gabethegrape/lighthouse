@@ -10,6 +10,8 @@
 
 typedef enum { NISSAN, HONDA, FORD, PORSCHE } CarModel;
 
+
+
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
         float myFloat = 1.123456789012345678901234567890f;
@@ -40,6 +42,24 @@ int main(int argc, const char * argv[]) {
             default:
                 break;
         }
+        
+        NSString * myString = @"Hello Gabe";
+        NSString * shout = [myString uppercaseString];
+        NSString * hello = @"Hello";
+        NSString * withInit = [[NSString alloc] initWithFormat:@"This is your message: %@", shout];
+        NSString * withHello = [NSString stringWithFormat:@"You should always start with %@", hello];
+        NSString * shoutHello = [withHello uppercaseString];
+        NSLog(@"This is my string: %@\n and %@\n %@\n", myString, withInit, shoutHello);
+        
+        NSDate *today = [NSDate date];
+        
+        NSDate *anotherDate = [[NSDate alloc] init];
+        
+        NSDate *dateAgain = [NSDate dateWithTimeIntervalSince1970:23234544];
+        
+        NSDate *lastDate = [[NSDate alloc] initWithTimeIntervalSince1970:23234544];
+        
+        NSLog(@"%@, %@, %@, %@", today, anotherDate, dateAgain, lastDate);
 
     }
     return 0;
