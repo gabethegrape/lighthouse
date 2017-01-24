@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "Employee.h"
 #import "MathUtility.h"
+#import "Player.h"
 
 typedef enum { NISSAN, HONDA, FORD, PORSCHE } CarModel;
 
@@ -82,10 +83,20 @@ int main(int argc, const char * argv[]) {
         
         // call the two methods on the newly instantiated object and assign to result variable
         int total = [util timesTen:55];
-        NSLog(@"Times by ten: %i\n", total);
+        NSLog(@"Times by ten: %i\n", [util timesTen:13]);
         
         total = [util addNumber:20 toNumber:30];
         NSLog(@"Add two numbers: %i\n", total);
+        
+        // Player class
+        // Instantiate first player object
+        Player *firstPlayer = [[Player alloc] init];
+        NSLog(@"first player score is: %i", [firstPlayer score]);
+        
+        // Instantiate second player object
+        Player *secondPlayer = [[Player alloc]initWithScore:3999];
+        NSLog(@"second player score: %i", [secondPlayer score]);
+        
     }
     return 0;
 }
