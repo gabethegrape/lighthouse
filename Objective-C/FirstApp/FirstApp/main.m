@@ -7,10 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Employee.h"
+#import "MathUtility.h"
 
 typedef enum { NISSAN, HONDA, FORD, PORSCHE } CarModel;
 
-
+NSString* evenOrOdd (NSInteger n){
+    return (n & 1) ? @"Odd" : @"Even" ;
+}
 
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
@@ -60,7 +64,28 @@ int main(int argc, const char * argv[]) {
         NSDate *lastDate = [[NSDate alloc] initWithTimeIntervalSince1970:23234544];
         
         NSLog(@"%@, %@, %@, %@", today, anotherDate, dateAgain, lastDate);
-
+        
+        NSString * result = evenOrOdd(3);
+        
+        NSLog(@"\n %@", result);
+        
+        // Call the employee class
+        Employee *fred = [[Employee alloc] init];
+        [fred someMethod];
+        [fred setName:@"Fred Smith"];
+        [fred setHireDate: [NSDate date]];
+        NSLog(@"Employee Name: %@\nEmployee Hire Date: %@", fred.name, fred.hireDate);
+        
+        // MathUtility class
+        // Instantiate the MathUtility object
+        MathUtility *util = [[MathUtility alloc] init];
+        
+        // call the two methods on the newly instantiated object and assign to result variable
+        int total = [util timesTen:55];
+        NSLog(@"Times by ten: %i\n", total);
+        
+        total = [util addNumber:20 toNumber:30];
+        NSLog(@"Add two numbers: %i\n", total);
     }
     return 0;
 }

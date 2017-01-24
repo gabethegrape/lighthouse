@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		3BEFC6801E33491200B7EED6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BEFC67F1E33491200B7EED6 /* main.m */; };
+		3BEFC6891E36B87800B7EED6 /* Employee.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BEFC6881E36B87800B7EED6 /* Employee.m */; };
+		3BEFC68C1E36CBF300B7EED6 /* MathUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BEFC68B1E36CBF300B7EED6 /* MathUtility.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,6 +27,10 @@
 /* Begin PBXFileReference section */
 		3BEFC67C1E33491200B7EED6 /* FirstApp */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = FirstApp; sourceTree = BUILT_PRODUCTS_DIR; };
 		3BEFC67F1E33491200B7EED6 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		3BEFC6871E36B87800B7EED6 /* Employee.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Employee.h; path = ../Employee.h; sourceTree = "<group>"; };
+		3BEFC6881E36B87800B7EED6 /* Employee.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Employee.m; path = ../Employee.m; sourceTree = "<group>"; };
+		3BEFC68A1E36CBF300B7EED6 /* MathUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MathUtility.h; sourceTree = "<group>"; };
+		3BEFC68B1E36CBF300B7EED6 /* MathUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MathUtility.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,7 +63,11 @@
 		3BEFC67E1E33491200B7EED6 /* FirstApp */ = {
 			isa = PBXGroup;
 			children = (
+				3BEFC6871E36B87800B7EED6 /* Employee.h */,
+				3BEFC6881E36B87800B7EED6 /* Employee.m */,
 				3BEFC67F1E33491200B7EED6 /* main.m */,
+				3BEFC68A1E36CBF300B7EED6 /* MathUtility.h */,
+				3BEFC68B1E36CBF300B7EED6 /* MathUtility.m */,
 			);
 			path = FirstApp;
 			sourceTree = "<group>";
@@ -120,7 +130,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3BEFC68C1E36CBF300B7EED6 /* MathUtility.m in Sources */,
 				3BEFC6801E33491200B7EED6 /* main.m in Sources */,
+				3BEFC6891E36B87800B7EED6 /* Employee.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
