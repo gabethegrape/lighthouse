@@ -7,6 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <Cocoa/Cocoa.h>
+#import <AppKit/AppKit.h>
 #import "Employee.h"
 #import "MathUtility.h"
 #import "Player.h"
@@ -117,7 +119,10 @@ int main(int argc, const char * argv[]) {
         
         // 1a. shorthand immutable arrays
         NSArray *shortHandArray = @[@"one", @"two", today]; // note @ sign before and doesn't have the 'nil' at the end
-        NSLog(@"shortHandArray: %@", shortHandArray[2]);
+        shortHandArray = @[@"aaaaa", @"b", @"c"]; //while you can't change the original array, you can replace it with a new one
+        NSLog(@"shortHandArray: %@", [shortHandArray description]);
+        NSUInteger firstVal = [shortHandArray[0] length];
+        NSLog(@"firstVal: %lu", firstVal);
         
         // 2. mutable arrays
         NSMutableArray *myMutableArray = [[NSMutableArray alloc] initWithObjects:@"one", today2, @"thousand", nil];
@@ -171,6 +176,87 @@ int main(int argc, const char * argv[]) {
         for (id province in canada) {
             NSLog(@"key:value %@:%@", province, canada[province]);
         }
+        
+        // WORKING WITH FILES
+        
+        // instantiate NSFileManager object
+        NSFileManager *fileManager = [NSFileManager defaultManager];
+        
+        // hard code file path (not recommended)
+        NSString *filePath = @"/Users/gpavel/Desktop/images/img-design.png";
+        
+        // check if file path exists
+        if ([fileManager fileExistsAtPath:filePath isDirectory:nil]) {
+            NSLog(@"File exists at: %@", filePath);
+        } else {
+            NSLog(@"File does not exist");
+        }
+        
+        // get file attributes
+        NSDictionary *fileAttributes = [fileManager attributesOfItemAtPath:filePath error:nil];
+        
+        // log out file attributes
+        for (id key in fileAttributes) {
+            NSLog(@"The keys %@ contain objects %@", key, fileAttributes[key]);
+        }
+        
+        // Alternate method of getting file paths
+        // use NSHomeDirectory() method
+        NSString *homeDirectory = NSHomeDirectory();
+        NSLog(@"home directory: %@", homeDirectory);
+        
+        // dive deeper into the home directory with the instance methods
+        NSString *desktopPath = [homeDirectory stringByAppendingPathComponent:@"Desktop"];
+        NSLog(@"desktop path: %@", desktopPath);
+        NSString *imageDirectory = [desktopPath stringByAppendingPathComponent:@"images"];
+        NSLog(@"image directory: %@", imageDirectory);
+        NSString *imagePath = [imageDirectory stringByAppendingPathComponent:@"img-design.png"];
+        NSLog(@"image file: %@", imagePath);
+        
+        // get dictionary of attributes
+        NSDictionary *imageFileAttributes = [fileManager attributesOfItemAtPath:imagePath error:nil];
+        
+        for (id key in imageFileAttributes) {
+            NSLog(@"The keys %@ contain objects %@", key, imageFileAttributes[key]);
+        }
+        
+        // working with NSURL (and not file NSString)
+        // start with Desktop URL
+        NSURL *desktopURL = [fileManager URLForDirectory:NSDesktopDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:nil];
+        NSLog(@"desktopURL: %@", desktopURL);
+        
+        // append images URL
+        NSURL *imageDirURL = [desktopURL URLByAppendingPathComponent:@"images"]; // note this is an NSURL and not NSString
+        NSURL *imageFileURL = [imageDirURL URLByAppendingPathComponent:@"img-design.png"];
+        NSLog(@"image directory: %@", imageFileURL);
+        
+        // or create URL from known path
+        NSURL *imageURLfromPath = [NSURL fileURLWithPath:imagePath];
+        NSLog(@"imageURLfromPath: %@", imageURLfromPath);
+        
+        // Examples using URL
+        // 1. READ file contents
+        // get the documents directory URL
+        NSURL *docsDirectory = [fileManager URLForDirectory:NSDocumentDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:nil];
+        
+        // get full URL path
+        NSURL *full = [docsDirectory URLByAppendingPathComponent:@"sample.txt"];
+        
+        // insert contents from sample text file into a string object
+        NSMutableString *contents = [[NSMutableString alloc] initWithContentsOfURL:full encoding:NSUTF8StringEncoding error:nil];
+        NSLog(@"contents: %@", contents);
+        
+        // 2. WRITE to file
+        // NOTE: need to use NSMutableString class to gain access to write methods
+        // append new string to old contents
+        [contents appendString:@"\n Cool new content"]; //appendString is an instance method of the NSMutableString class
+        
+        // create new destination file in same directory (can also write to old one as well)
+        NSURL *saveLocation = [docsDirectory URLByAppendingPathComponent:@"saved.txt"];
+        
+        // write new string to new destination
+        //[contents writeToURL:saveLocation atomically:YES encoding:NSUTF8StringEncoding error:nil];
+        
     }
     return 0;
 }
