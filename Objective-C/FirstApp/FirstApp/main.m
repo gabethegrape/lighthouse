@@ -154,6 +154,23 @@ int main(int argc, const char * argv[]) {
             @"AB" : @"Alberta"
         }; // note @ sign before curly and no nil at the end
         NSLog(@"quicker: %@ %@", someProvince, quicker[someProvince]);
+        
+        // ENUMERATION
+        // 1. Enumerate over an ARRAY
+        NSArray *people = @[@"Gabe", @"Eva", @"Sasha"];
+        for (id person in people) {
+            NSLog(@"person: %@", person);
+        }
+        
+        // 2. Enumerate over a DICTIONARY
+        NSDictionary *canada = @{
+                                  @"BC" : @"British Columbia",
+                                  @3 : @"Ontario",
+                                  @"AB" : @"Alberta"
+                                  };
+        for (id province in canada) {
+            NSLog(@"key:value %@:%@", province, canada[province]);
+        }
     }
     return 0;
 }
