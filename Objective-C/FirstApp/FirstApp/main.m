@@ -116,7 +116,7 @@ int main(int argc, const char * argv[]) {
         NSLog(@"array called with shorthand: %@", myImmutableArray[2]);
         
         // 1a. shorthand immutable arrays
-        NSArray *shortHandArray = @[@"one", @"two", today]; // doesn't have the 'nil' at the end
+        NSArray *shortHandArray = @[@"one", @"two", today]; // note @ sign before and doesn't have the 'nil' at the end
         NSLog(@"shortHandArray: %@", shortHandArray[2]);
         
         // 2. mutable arrays
@@ -126,7 +126,34 @@ int main(int argc, const char * argv[]) {
         [myMutableArray removeObjectAtIndex:0]; // removes first object from array
         NSLog(@"my mutable array: %@", myMutableArray[2]); // how do we display primitive types too?
         
+        // DICTIONARIES
+        // 1. Immutable dictionaries
+        NSDictionary *provinces = [[NSDictionary alloc] initWithObjectsAndKeys:
+                                   @"British Columbia", @"BC",
+                                   @"Alberta", @"AB",
+                                   @"Manitoba", @"MB",
+                                   @"Ontario", @"ON",
+                                   nil];
+        NSLog(@"provinces: %@", [provinces objectForKey:@"BC"]);
         
+        // 2. Mutable dictionaries
+        NSMutableDictionary *provinces2 = [[NSMutableDictionary alloc] initWithObjectsAndKeys:
+                                   @"British Columbia", @"BC",
+                                   @"Alberta", @"AB",
+                                   @"Manitoba", @"MB",
+                                   nil];
+        [provinces2 setObject:@"Ontario" forKey:@"ON"]; // adds a key/value pair to the dict
+        NSString *someProvince = @"ON";
+        NSLog(@"provinces: %@ %@", someProvince, [provinces2 objectForKey:someProvince]);
+        NSLog(@"shorthand provinces log: %@ %@", someProvince, provinces2[someProvince]);
+        
+        // 3. Shorthand dictionary instantiation
+        NSDictionary *quicker = @{
+            @"BC" : @"British Columbia",
+            @"ON" : @"Ontario",
+            @"AB" : @"Alberta"
+        }; // note @ sign before curly and no nil at the end
+        NSLog(@"quicker: %@ %@", someProvince, quicker[someProvince]);
     }
     return 0;
 }
