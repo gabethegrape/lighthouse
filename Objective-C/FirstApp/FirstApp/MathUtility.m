@@ -9,8 +9,10 @@
 #import "MathUtility.h"
 
 @implementation MathUtility
-
-// any instance variables should be defined here
+{
+    // any instance variables should be defined here
+    int somePrimitiveValue;
+}
 
 -(int) timesTen:(int)number {
     NSLog(@"The number to multiply by 10: %i\n", number);
