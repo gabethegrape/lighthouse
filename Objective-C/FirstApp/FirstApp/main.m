@@ -97,6 +97,36 @@ int main(int argc, const char * argv[]) {
         Player *secondPlayer = [[Player alloc]initWithScore:3999];
         NSLog(@"second player score: %i", [secondPlayer score]);
         
+        // ARRAYS
+        
+        // C-style arrays (immutable) and single type
+        int myNumsArray[4] = {1,2,3,4}; // can be int myNumsArray[]
+        NSLog(@"myNumsArray: %i", myNumsArray[1]);
+        
+        NSString *fruits[4] = { @"Apples", @"Oranges", @"Bananas", @"Pears"};
+        NSLog(@"my fruits: %@", fruits[2]);
+        
+        // NOTE: no "bounds checking" on index value with c-style arrays
+        
+        // Objective-C style arrays
+        // 1. immutable arrays
+        NSDate *today2 = [NSDate date];
+        NSArray *myImmutableArray = [[NSArray alloc] initWithObjects:@"one", @"two", @"three", today2, nil];
+        NSLog(@"array called with objectAtIndex: %@", [myImmutableArray objectAtIndex:3]);
+        NSLog(@"array called with shorthand: %@", myImmutableArray[2]);
+        
+        // 1a. shorthand immutable arrays
+        NSArray *shortHandArray = @[@"one", @"two", today]; // doesn't have the 'nil' at the end
+        NSLog(@"shortHandArray: %@", shortHandArray[2]);
+        
+        // 2. mutable arrays
+        NSMutableArray *myMutableArray = [[NSMutableArray alloc] initWithObjects:@"one", today2, @"thousand", nil];
+        myString = @"this is still Gabe";
+        [myMutableArray addObject:myString]; // adds value to the last position in array (before nil)
+        [myMutableArray removeObjectAtIndex:0]; // removes first object from array
+        NSLog(@"my mutable array: %@", myMutableArray[2]); // how do we display primitive types too?
+        
+        
     }
     return 0;
 }
