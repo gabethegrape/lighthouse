@@ -13,8 +13,6 @@
 #import "MathUtility.h"
 #import "Player.h"
 
-typedef enum { NISSAN, HONDA, FORD, PORSCHE } CarModel;
-
 NSString* evenOrOdd (NSInteger n){
     return (n & 1) ? @"Odd" : @"Even" ;
 }
@@ -34,21 +32,6 @@ int main(int argc, const char * argv[]) {
         double odometer = 900.2;
         int odometerAsInt = (int)odometer;
         NSLog(@"odometer %.1f\n odometerAsInt: %d\n", odometer, odometerAsInt);
-        
-        CarModel myCar = NISSAN;
-        
-        switch (myCar) {
-            case NISSAN:
-            case HONDA:
-                NSLog(@"You like Japanese cars");
-                break;
-            case FORD:
-            case PORSCHE:
-                NSLog(@"You like Western cars");
-                break;
-            default:
-                break;
-        }
         
         NSString * myString = @"Hello Gabe";
         NSString * shout = [myString uppercaseString];
@@ -256,6 +239,74 @@ int main(int argc, const char * argv[]) {
         
         // write new string to new destination
         //[contents writeToURL:saveLocation atomically:YES encoding:NSUTF8StringEncoding error:nil];
+        
+        // ENUMS
+        
+        typedef NS_ENUM(NSInteger, DayOfWeek) {
+            DayOfWeekMonday = 1,
+            DayOfWeekTuesday = 2,
+            DayOfWeekWednesday = 3,
+            DayOfWeekThursday = 4,
+            DayOfWeekFriday = 5,
+            DayOfWeekSaturday = 6,
+            DayOfWeekSunday = 7
+        };
+        
+        DayOfWeek day = 1;
+        
+        switch (day) {
+            case DayOfWeekMonday:
+            case DayOfWeekTuesday:
+            case DayOfWeekWednesday:
+            case DayOfWeekThursday: {
+                NSLog(@"It's Fedora");
+                break;
+            }
+            case DayOfWeekFriday: {
+                NSLog(@"It's Sombrero");
+                break;
+            }
+            case DayOfWeekSaturday:
+            case DayOfWeekSunday: {
+                NSLog(@"It's AstronautHelmet");
+                break;
+            }
+        }
+        
+        
+        // Alternate syntax for enums
+        typedef enum { NISSAN, HONDA, FORD, PORSCHE } CarModel;
+        
+        CarModel myCar = NISSAN;
+        
+        switch (myCar) {
+            case NISSAN:
+            case HONDA:
+                NSLog(@"You like Japanese cars");
+                break;
+            case FORD:
+            case PORSCHE:
+                NSLog(@"You like Western cars");
+                break;
+            default:
+                break;
+        }
+        
+        // Another syntax for enum
+        enum SomeAreFruit { APPLES, ORANGES, TOMATOES, POTATOES };
+        enum SomeAreFruit fruit = APPLES;
+        switch (fruit) {
+            case APPLES:
+                NSLog(@"You like Apples");
+                break;
+            case ORANGES:
+            case TOMATOES:
+            case POTATOES:
+                NSLog(@"You don't like Apples");
+                break;
+            default:
+                break;
+        }
         
     }
     return 0;
