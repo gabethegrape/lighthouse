@@ -13,12 +13,13 @@
 #import "MathUtility.h"
 #import "Player.h"
 
-NSString* evenOrOdd (NSInteger n){
-    return (n & 1) ? @"Odd" : @"Even" ;
-}
+NSString * evenOrOdd (NSInteger n); // function prototype - declared before main function, but defined after
 
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
+        
+        // TYPES
+        // 1. Primitives (C)
         float myFloat = 1.123456789012345678901234567890f;
         double myDouble = 1.123456789012345678901234567890;
         long double myLongDouble = 1.123456789012345678901234567890L;
@@ -30,9 +31,11 @@ int main(int argc, const char * argv[]) {
         NSLog(@"%i %i", myBool, myBool2);
         
         double odometer = 900.2;
+        // type casting
         int odometerAsInt = (int)odometer;
         NSLog(@"odometer %.1f\n odometerAsInt: %d\n", odometer, odometerAsInt);
         
+        // 2. Complex types (Objective-C)
         NSString * myString = @"Hello Gabe";
         NSString * shout = [myString uppercaseString];
         NSString * hello = @"Hello";
@@ -42,20 +45,21 @@ int main(int argc, const char * argv[]) {
         NSLog(@"This is my string: %@\n and %@\n %@\n", myString, withInit, shoutHello);
         
         NSDate *today = [NSDate date];
-        
         NSDate *anotherDate = [[NSDate alloc] init];
-        
         NSDate *dateAgain = [NSDate dateWithTimeIntervalSince1970:23234544];
-        
         NSDate *lastDate = [[NSDate alloc] initWithTimeIntervalSince1970:23234544];
         
         NSLog(@"%@, %@, %@, %@", today, anotherDate, dateAgain, lastDate);
         
-        NSString * result = evenOrOdd(3);
+        // FUNCTION CALLBACKS
         
+        NSString *result = evenOrOdd(3);
         NSLog(@"\n %@", result);
         
-        // Call the employee class
+        // OBJECT INSTANTIATION
+        
+        // Employee Class
+        
         Employee *fred = [[Employee alloc] init];
         [fred someMethod];
         [fred setName:@"Fred Smith"];
@@ -63,7 +67,7 @@ int main(int argc, const char * argv[]) {
         NSLog(@"Employee Name: %@\nEmployee Hire Date: %@", fred.name, fred.hireDate);
         
         // MathUtility class
-        // Instantiate the MathUtility object
+        
         MathUtility *util = [[MathUtility alloc] init];
         
         // call the two methods on the newly instantiated object and assign to result variable
@@ -74,6 +78,7 @@ int main(int argc, const char * argv[]) {
         NSLog(@"Add two numbers: %i\n", total);
         
         // Player class
+        
         // Instantiate first player object
         Player *firstPlayer = [[Player alloc] init];
         NSLog(@"first player score is: %i", [firstPlayer score]);
@@ -310,16 +315,75 @@ int main(int argc, const char * argv[]) {
         }
         
         // BLOCKS
-        // blocks without arguments
+        // nameless blocks without arguments
+        ^{
+            NSLog(@"Hello from inside the block without arguments");
+        }; // note the unused expression warning
+        
+        // nameless blocks with arguments
+        ^(double dividend, double divisor) {
+            double quotient = dividend / divisor;
+            return quotient;
+        }; // note the unused expression warning
+        
+        // named block without arguments
         void (^logMessage)(void) = ^{
-            NSLog(@"Hello from inside the block");
+            NSLog(@"Hello from inside a named block");
         };
         logMessage();
         
-        // blocks with arguments
+        // Named blocks with arguments, declared, assigned, and called
+        
+        // 1. Declare the block variable
+        double (^distanceFromRateAndTime)(double rate, double time);
+        
+        // 2. Create and assign the block
+        distanceFromRateAndTime = ^double(double rate, double time) {
+            return rate * time;
+        };
+        // 3. Call the block
+        double dx = distanceFromRateAndTime(35, 1.5);
+        
+        // 4. Log the results
+        NSLog(@"A car driving 35 mph will travel "
+              @"%.2f miles in 1.5 hours.", dx);
         
         
+        // Complex blocks in action
         
+        // Create the array of strings to devowelize and a container for new ones
+        NSArray *oldStrings = [NSArray arrayWithObjects:
+                               @"Sauerkraut", @"Raygun", @"Big Nerd Ranch", @"Mississippi", nil];
+        NSLog(@"old strings: %@", oldStrings);
+        NSMutableArray *newStrings = [NSMutableArray array];
+        // Create a list of characters that we'll remove from the string
+        NSArray *vowels = [NSArray arrayWithObjects:
+                           @"a", @"e", @"i", @"o", @"u", nil];
+        
+        // Declare the block variable
+        void (^devowelizer)(id, NSUInteger, BOOL *);
+        
+        // Assign a block to the variable
+        devowelizer = ^(id string, NSUInteger i, BOOL *stop) {
+            NSMutableString *newString = [NSMutableString stringWithString:string];
+            // Iterate over the array of vowels, replacing occurrences of each
+            // with an empty string.
+            for (NSString *s in vowels) {
+                NSRange fullRange = NSMakeRange(0, [newString length]);
+                [newString replaceOccurrencesOfString:s
+                                           withString:@""
+                                              options:NSCaseInsensitiveSearch
+                                                range:fullRange];
+                 }
+                 [newStrings addObject:newString];
+        }; // End of block assignment
     }
     return 0;
+}
+
+
+// FUNCTIONS
+
+NSString* evenOrOdd (NSInteger n){
+    return (n & 1) ? @"Odd" : @"Even" ;
 }
