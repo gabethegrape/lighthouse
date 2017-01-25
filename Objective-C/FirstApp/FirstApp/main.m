@@ -143,7 +143,7 @@ int main(int argc, const char * argv[]) {
         }; // note @ sign before curly and no nil at the end
         NSLog(@"quicker: %@ %@", someProvince, quicker[someProvince]);
         
-        // ENUMERATION
+        // FAST ENUMERATION
         // 1. Enumerate over an ARRAY
         NSArray *people = @[@"Gabe", @"Eva", @"Sasha"];
         for (id person in people) {
@@ -241,6 +241,7 @@ int main(int argc, const char * argv[]) {
         //[contents writeToURL:saveLocation atomically:YES encoding:NSUTF8StringEncoding error:nil];
         
         // ENUMS
+        // http://stackoverflow.com/a/707572/2036434
         
         typedef NS_ENUM(NSInteger, DayOfWeek) {
             DayOfWeekMonday = 1,
@@ -307,6 +308,17 @@ int main(int argc, const char * argv[]) {
             default:
                 break;
         }
+        
+        // BLOCKS
+        // blocks without arguments
+        void (^logMessage)(void) = ^{
+            NSLog(@"Hello from inside the block");
+        };
+        logMessage();
+        
+        // blocks with arguments
+        
+        
         
     }
     return 0;
