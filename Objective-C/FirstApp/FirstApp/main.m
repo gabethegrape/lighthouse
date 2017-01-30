@@ -37,6 +37,8 @@ int main(int argc, const char * argv[]) {
         
         // 2. Complex types (Objective-C)
         NSString * myString = @"Hello Gabe";
+        NSUInteger myStringLength = [myString length];
+        NSLog(@"myStringLength: %d", (int)myStringLength);
         NSString * shout = [myString uppercaseString];
         NSString * hello = @"Hello";
         NSString * withInit = [[NSString alloc] initWithFormat:@"This is your message: %@", shout];
