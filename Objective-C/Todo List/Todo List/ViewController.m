@@ -88,6 +88,12 @@
 #import "ViewController.h"
 #import "ListTableViewCell.h"
 
+@interface ViewController () <UITableViewDataSource, UITableViewDelegate, AddItemViewControllerDelegate>
+
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+
+@end
+
 @implementation ViewController
 
 - (void)viewDidLoad {

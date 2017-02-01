@@ -12,6 +12,21 @@
 #import "Employee.h"
 #import "MathUtility.h"
 #import "Player.h"
+#import "NSString+FormattingOptions.h"
+
+
+
+// FUNCTIONS
+
+
+NSString* evenOrOdd (NSInteger n){
+    return (n & 1) ? @"Odd" : @"Even" ;
+}
+
+void myFunction3(NSString * x) {
+    NSLog(@"Hello from inside the function with string param: %@", x);
+}
+
 
 NSString * evenOrOdd (NSInteger n); // function prototype - declared before main function, but defined after
 
@@ -53,10 +68,29 @@ int main(int argc, const char * argv[]) {
         
         NSLog(@"%@, %@, %@, %@", today, anotherDate, dateAgain, lastDate);
         
+        
+        
+        // NUMBERS
+        int myInt = 12;
+        NSNumber *myNum = @13;
+        NSUInteger unsignedInt = 15;
+        NSInteger signedInt = -14;
+        NSNumber *myHex = @666666;
+        
+        NSLog(@"int myInt: %i", myInt);
+        NSLog(@"NSNumber: %i", [myNum intValue]);
+        NSLog(@"NSUInteger: %tu", unsignedInt);
+        NSLog(@"NSInteger: %zd", signedInt);
+        NSLog(@"NSNumber hex: %tx", [myHex intValue]);
+        NSLog(@"Adding NSNumber to NSInteger: %zd", [myNum intValue] + signedInt);
+        
         // FUNCTION CALLBACKS
         
         NSString *result = evenOrOdd(3);
         NSLog(@"\n %@", result);
+        
+        
+        
         
         // OBJECT INSTANTIATION
         
@@ -66,7 +100,12 @@ int main(int argc, const char * argv[]) {
         [fred someMethod];
         [fred setName:@"Fred Smith"];
         [fred setHireDate: [NSDate date]];
-        NSLog(@"Employee Name: %@\nEmployee Hire Date: %@", fred.name, fred.hireDate);
+        [fred setEmployeeNumber:(int)23];
+        NSLog(@"Employee Name: %@\nEmployee Hire Date: %@, Employee Number: %d", fred.name, fred.hireDate, fred.employeeNumber);
+        
+        Employee *bob = [fred copy];
+        bob.name = [fred copyWithName];
+        NSLog(@"bob is %@, and fred is %@", bob.name, fred.name);
         
         // MathUtility class
         
@@ -88,6 +127,13 @@ int main(int argc, const char * argv[]) {
         // Instantiate second player object
         Player *secondPlayer = [[Player alloc]initWithScore:3999];
         NSLog(@"second player score: %i", [secondPlayer score]);
+        
+//        Player *thirdPlayer = [Player copy];
+//        NSLog(@"copy of secondPlayer: %i", [thirdPlayer score]);
+        
+        
+        
+        
         
         // ARRAYS
         
@@ -121,6 +167,10 @@ int main(int argc, const char * argv[]) {
         [myMutableArray removeObjectAtIndex:0]; // removes first object from array
         NSLog(@"my mutable array: %@", myMutableArray[2]); // how do we display primitive types too?
         
+        
+        
+        
+        
         // DICTIONARIES
         // 1. Immutable dictionaries
         NSDictionary *provinces = [[NSDictionary alloc] initWithObjectsAndKeys:
@@ -150,6 +200,9 @@ int main(int argc, const char * argv[]) {
         }; // note @ sign before curly and no nil at the end
         NSLog(@"quicker: %@ %@", someProvince, quicker[someProvince]);
         
+        
+        
+        
         // FAST ENUMERATION
         // 1. Enumerate over an ARRAY
         NSArray *people = @[@"Gabe", @"Eva", @"Sasha"];
@@ -166,6 +219,10 @@ int main(int argc, const char * argv[]) {
         for (id province in canada) {
             NSLog(@"key:value %@:%@", province, canada[province]);
         }
+        
+        
+        
+        
         
         // WORKING WITH FILES
         
@@ -225,7 +282,7 @@ int main(int argc, const char * argv[]) {
         NSLog(@"imageURLfromPath: %@", imageURLfromPath);
         
         // Examples using URL
-        // 1. READ file contents
+        // 1. READ FROM FILE
         // get the documents directory URL
         NSURL *docsDirectory = [fileManager URLForDirectory:NSDocumentDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:nil];
         
@@ -236,16 +293,31 @@ int main(int argc, const char * argv[]) {
         NSMutableString *contents = [[NSMutableString alloc] initWithContentsOfURL:full encoding:NSUTF8StringEncoding error:nil];
         NSLog(@"contents: %@", contents);
         
-        // 2. WRITE to file
+        
+        
+        
+        
+        // 2. WRITE TO FILE
         // NOTE: need to use NSMutableString class to gain access to write methods
         // append new string to old contents
         [contents appendString:@"\n Cool new content"]; //appendString is an instance method of the NSMutableString class
         
         // create new destination file in same directory (can also write to old one as well)
-        NSURL *saveLocation = [docsDirectory URLByAppendingPathComponent:@"saved.txt"];
+        //NSURL *saveLocation = [docsDirectory URLByAppendingPathComponent:@"saved.txt"];
         
         // write new string to new destination
         //[contents writeToURL:saveLocation atomically:YES encoding:NSUTF8StringEncoding error:nil];
+        
+        
+        
+        
+        // CATEGORIES
+        // 1. Add new category file 'NSString+FormattingOptions.h'
+        // 2. declare method in header file and create new method with desired functionality in implementation file
+        // 3. import category header file
+        // 4. call new method on string object
+        NSString *message = @"The big brown fox";
+        NSLog(@"message using categories: %@", [message convertToWhiteSpace]);
         
         // ENUMS
         // http://stackoverflow.com/a/707572/2036434
@@ -318,15 +390,15 @@ int main(int argc, const char * argv[]) {
         
         // BLOCKS
         // nameless blocks without arguments
-        ^{
-            NSLog(@"Hello from inside the block without arguments");
-        }; // note the unused expression warning
+//        ^{
+//            NSLog(@"Hello from inside the block without arguments");
+//        }; // note the unused expression warning
         
         // nameless blocks with arguments
-        ^(double dividend, double divisor) {
-            double quotient = dividend / divisor;
-            return quotient;
-        }; // note the unused expression warning
+//        ^(double dividend, double divisor) {
+//            double quotient = dividend / divisor;
+//            return quotient;
+//        }; // note the unused expression warning
         
         // named block without arguments
         void (^logMessage)(void) = ^{
@@ -379,13 +451,29 @@ int main(int argc, const char * argv[]) {
                  }
                  [newStrings addObject:newString];
         }; // End of block assignment
+        
+        
+        
+        
+        // POINTERS
+        
+        int i = 17;
+        int *addressOfI = &i;
+        NSLog(@"%p", addressOfI);
+        printf("the int stored at addressOfI is %d\n", *addressOfI);
+        *addressOfI = 89;
+        printf("Now i is %d\n", i);
+        NSString * myString2 = @"testing pointer";
+        NSString * myString3 = [myString2 copy];
+        myFunction3(myString3);
+        
+        //NSCopy
+        // 1. When Class is a direct descendant of NSObject
+        // 2. When Class is NOT a direct descendant of NSObject (a custom class)
+        
+        
     }
     return 0;
 }
 
 
-// FUNCTIONS
-
-NSString* evenOrOdd (NSInteger n){
-    return (n & 1) ? @"Odd" : @"Even" ;
-}

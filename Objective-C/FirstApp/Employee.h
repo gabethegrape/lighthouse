@@ -8,12 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
-@interface Employee : NSObject
+@interface Employee : NSObject <NSCopying>
 
 @property NSString *name;
 @property NSDate * hireDate;
+@property (readonly) BOOL isEmployee;
 @property int employeeNumber;
 
 -(void) someMethod;
+-(NSString *) copyWithName;
 
 @end

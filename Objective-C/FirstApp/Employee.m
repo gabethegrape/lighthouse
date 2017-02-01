@@ -9,9 +9,23 @@
 #import "Employee.h"
 
 @implementation Employee
+{
+    NSString * _name;
+}
 
 -(void) someMethod {
-    NSLog(@"This is an Employee method");
+    _isEmployee = NO;
+    NSLog(@"This is an Employee: %d, and they are employed? %hhd", (int)self.employeeNumber, _isEmployee);
+    
+}
+
+-(Employee *) copyWithZone:(NSZone *)zone {
+    Employee *myEmployee = [Employee allocWithZone:zone];
+    return myEmployee;
+}
+
+-(NSString *)copyWithName {
+    return _name;
 }
 
 @end

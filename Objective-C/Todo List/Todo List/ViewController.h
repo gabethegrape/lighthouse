@@ -9,9 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "AddItemViewController.h"
 
-@interface ViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, AddItemViewControllerDelegate>
+@interface ViewController : UIViewController 
 
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSMutableArray *todos;
 
 @end
